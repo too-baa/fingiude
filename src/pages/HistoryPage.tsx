@@ -18,25 +18,25 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
   onOpenAuth,
 }) => {
   return (
-    <div className="space-y-8 py-4 max-w-6xl mx-auto">
+    <div className="space-y-12 py-4 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-2">
+        <div className="space-y-3">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
             <History className="w-3.5 h-3.5 text-amber-700" />
             <span>Privacy-Preserving Longitudinal Tracking</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
             Financial Score Trends
           </h1>
-          <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
             Multi-month behavioral progression logs. Only aggregate score snapshots are stored — zero raw statement transactions.
           </p>
         </div>
 
         <button
           onClick={onSnapshotScore}
-          className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-sm transition flex items-center gap-2 self-start sm:self-auto"
+          className="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-md shadow-amber-400/20 hover:-translate-y-0.5 transition duration-200 flex items-center gap-2 self-start sm:self-auto shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Save Current Month Snapshot</span>
@@ -44,19 +44,19 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       </div>
 
       {/* Supabase Status Banner */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center space-x-3">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-            isSupabaseConfigured && user ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-xs hover-card-lift flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="flex items-center space-x-4">
+          <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
+            isSupabaseConfigured && user ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'
           }`}>
-            {isSupabaseConfigured && user ? <Database className="w-5 h-5" /> : <CloudOff className="w-5 h-5" />}
+            {isSupabaseConfigured && user ? <Database className="w-6 h-6" /> : <CloudOff className="w-6 h-6" />}
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h4 className="text-sm font-bold text-slate-900">
+            <div className="flex items-center gap-2.5">
+              <h4 className="text-base font-bold text-slate-900">
                 {isSupabaseConfigured && user ? 'Supabase Cloud DB Active' : 'Local Storage Mode'}
               </h4>
-              <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
+              <span className={`text-[10px] font-extrabold px-3 py-0.5 rounded-full border ${
                 isSupabaseConfigured && user
                   ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                   : 'bg-amber-50 text-amber-900 border-amber-300'
@@ -64,7 +64,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
                 {isSupabaseConfigured && user ? 'Synced' : 'Local Only'}
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 mt-1">
               {isSupabaseConfigured && user
                 ? `Authenticated with JWT session for ${user.email}. Synchronized across devices.`
                 : 'Score history is currently preserved exclusively in your local browser cache.'}
@@ -75,7 +75,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
         {!user && (
           <button
             onClick={onOpenAuth}
-            className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-sm"
+            className="px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-sm hover:scale-[1.02] shrink-0"
           >
             Sign In with Supabase
           </button>
@@ -83,7 +83,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({
       </div>
 
       {/* Main Score Trend Line Chart */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-4">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-10 shadow-xs hover-card-lift space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-bold text-slate-900">Score Timeline (0–100)</h3>

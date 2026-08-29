@@ -39,84 +39,84 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({ summary }) => {
   const savingsPercent = totalIncome > 0 ? ((netSavings / totalIncome) * 100).toFixed(1) : '0';
 
   return (
-    <div className="space-y-8 py-4 max-w-6xl mx-auto">
+    <div className="space-y-12 py-4 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="space-y-1.5">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold">
+      <div className="space-y-3 pb-2">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
           <Layers className="w-3.5 h-3.5 text-amber-700" />
           <span>Expense Analytics & Outflow Allocation</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Monthly Spending Breakdown
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Spending Breakdown & Outflow
         </h1>
-        <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
           Comprehensive visualization of your expense footprint categorized by essential necessities vs discretionary lifestyle spending.
         </p>
       </div>
 
       {/* 50/30/20 Benchmark Comparison Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Needs Card */}
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-2">
+        <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-8 shadow-xs hover-card-lift space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Needs (Essentials)</span>
-            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Needs (Essentials)</span>
+            <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
               Benchmark: ~50%
             </span>
           </div>
-          <div className="text-2xl font-extrabold font-mono text-slate-900">
+          <div className="text-3xl font-extrabold font-mono text-slate-900">
             ₹{Math.round(essentialSpend).toLocaleString('en-IN')}
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 leading-relaxed">
             Represents <strong>{essentialsPercent}%</strong> of total monthly income. Includes rent, groceries, and utilities.
           </p>
         </div>
 
         {/* Wants Card */}
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-2">
+        <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-8 shadow-xs hover-card-lift space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Wants (Discretionary)</span>
-            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-50 text-amber-900 border border-amber-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Wants (Discretionary)</span>
+            <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
               Benchmark: ~30%
             </span>
           </div>
-          <div className="text-2xl font-extrabold font-mono text-slate-900">
+          <div className="text-3xl font-extrabold font-mono text-slate-900">
             ₹{Math.round(discretionarySpend).toLocaleString('en-IN')}
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 leading-relaxed">
             Represents <strong>{discretionaryPercent}%</strong> of income. Includes dining out, subscriptions, and shopping.
           </p>
         </div>
 
         {/* Savings Card */}
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-2">
+        <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-8 shadow-xs hover-card-lift space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Savings & Surplus</span>
-            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Savings & Surplus</span>
+            <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
               Benchmark: ~20%
             </span>
           </div>
-          <div className="text-2xl font-extrabold font-mono text-slate-900">
+          <div className="text-3xl font-extrabold font-mono text-slate-900">
             ₹{Math.round(netSavings).toLocaleString('en-IN')}
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 leading-relaxed">
             Represents <strong>{savingsRate.toFixed(1)}%</strong> retained capital available for compounding and goals.
           </p>
         </div>
       </div>
 
-      {/* Main Chart Card */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+      {/* Main Chart Card with generous padding */}
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-10 shadow-xs hover-card-lift space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-lg font-bold text-slate-900">Category Distribution & Volume</h3>
+            <h3 className="text-xl font-bold text-slate-900">Category Distribution & Volume</h3>
             <p className="text-xs text-slate-500">Visual representation of expenses across {data.length} active categories</p>
           </div>
 
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <div className="flex items-center bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
             <button
               onClick={() => setChartView('donut')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition ${
                 chartView === 'donut' ? 'bg-amber-400 text-slate-950 shadow-sm' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
@@ -125,7 +125,7 @@ export const AnalyticsPage: React.FC<AnalyticsPageProps> = ({ summary }) => {
             </button>
             <button
               onClick={() => setChartView('bar')}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              className={`flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition ${
                 chartView === 'bar' ? 'bg-amber-400 text-slate-950 shadow-sm' : 'text-slate-500 hover:text-slate-900'
               }`}
             >

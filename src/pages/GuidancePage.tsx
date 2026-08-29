@@ -28,44 +28,44 @@ export const GuidancePage: React.FC<GuidancePageProps> = ({
   const totalPotentialSavings = recommendations.reduce((sum, r) => sum + r.potentialMonthlySavings, 0);
 
   return (
-    <div className="space-y-8 py-4 max-w-6xl mx-auto">
+    <div className="space-y-12 py-4 max-w-6xl mx-auto">
       {/* Header */}
-      <div className="space-y-1.5">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold">
+      <div className="space-y-3 pb-2">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
           <Lightbulb className="w-3.5 h-3.5 text-amber-700" />
           <span>Actionable Savings Strategy</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Prioritized Action Plan & Guidance
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Prioritized Action Plan
         </h1>
-        <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
           Concrete, rule-based recommendations tailored to your spending habits and your <strong>{goal.title}</strong> goal.
         </p>
       </div>
 
-      {/* Goal Target Alignment Summary Card */}
-      <div className="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div className="space-y-1.5 max-w-xl">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-amber-400">
+      {/* Goal Target Alignment Summary Card with generous padding */}
+      <div className="bg-slate-900 rounded-3xl p-8 sm:p-10 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="space-y-2 max-w-xl">
+          <span className="text-xs font-black uppercase tracking-wider text-amber-400">
             Goal Acceleration Impact
           </span>
-          <h3 className="text-xl font-bold text-white">
+          <h3 className="text-2xl font-bold text-white tracking-tight">
             Cumulative Optimization Potential: +₹{totalPotentialSavings.toLocaleString('en-IN')}/month
           </h3>
-          <p className="text-xs text-slate-300 leading-relaxed font-normal">
-            By enacting these {recommendations.length} behavior adjustments, you can bridge the monthly savings deficit and reach your <strong>₹{goal.targetAmount.toLocaleString('en-IN')}</strong> target comfortably ahead of schedule.
+          <p className="text-sm text-slate-300 leading-relaxed font-normal">
+            By enacting these {recommendations.length} behavior adjustments, you can bridge your savings deficit and reach your <strong>₹{goal.targetAmount.toLocaleString('en-IN')}</strong> target comfortably ahead of schedule.
           </p>
         </div>
 
-        <div className="bg-slate-800/90 border border-slate-700 p-4 rounded-2xl shrink-0 space-y-1 text-right min-w-[200px]">
-          <span className="text-[11px] text-slate-400 block font-medium">Target Milestone</span>
-          <span className="text-lg font-bold font-mono text-amber-400 block">₹{goal.targetAmount.toLocaleString('en-IN')}</span>
+        <div className="bg-slate-800/90 border border-slate-700 p-5 rounded-2xl shrink-0 space-y-1.5 text-right min-w-[220px]">
+          <span className="text-xs text-slate-400 block font-medium">Target Goal Milestone</span>
+          <span className="text-xl font-bold font-mono text-amber-400 block">₹{goal.targetAmount.toLocaleString('en-IN')}</span>
           <span className="text-xs text-slate-300 block">Required: ₹{Math.round(goalAnalysis.requiredMonthlySavings).toLocaleString('en-IN')}/mo</span>
         </div>
       </div>
 
       {/* Filter and Recommendations Section */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-5">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-8 sm:p-10 shadow-xs hover-card-lift space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-100">
           <div>
             <h3 className="text-base font-bold text-slate-900">Optimization Action Cards ({filteredRecs.length})</h3>

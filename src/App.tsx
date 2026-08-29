@@ -177,7 +177,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 text-slate-900 flex flex-col font-sans antialiased">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans antialiased selection:bg-amber-400 selection:text-slate-950">
       {/* Top Multi-Page Navbar */}
       <Navbar
         activeTab={activeTab}
@@ -188,60 +188,62 @@ export function App() {
         onClearSession={handleClearSession}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      {/* Main Content Area with Generous Spacing */}
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
         {/* Incomplete / Graceful Fallback Banner */}
         <IncompleteDataBanner
           summary={summary}
           onSetEstimatedIncome={(val) => setEstimatedIncomeOverride(val)}
         />
 
-        {/* Tab Page Router */}
-        {activeTab === 'overview' && (
-          <OverviewPage
-            score={healthScore}
-            summary={summary}
-            goal={activeGoal}
-            goalAnalysis={goalAnalysis}
-            microAction={todayMicroAction}
-            onNavigate={handleSelectTab}
-            onOpenExplainer={() => setIsExplainerOpen(true)}
-            onSnapshotScore={handleSaveToHistory}
-          />
-        )}
+        {/* Animated Tab Page Router */}
+        <div key={activeTab} className="page-transition">
+          {activeTab === 'overview' && (
+            <OverviewPage
+              score={healthScore}
+              summary={summary}
+              goal={activeGoal}
+              goalAnalysis={goalAnalysis}
+              microAction={todayMicroAction}
+              onNavigate={handleSelectTab}
+              onOpenExplainer={() => setIsExplainerOpen(true)}
+              onSnapshotScore={handleSaveToHistory}
+            />
+          )}
 
-        {activeTab === 'statement' && (
-          <StatementPage
-            goal={activeGoal}
-            onGoalChange={handleGoalChange}
-            onFileUpload={handleCustomFileUpload}
-            onSelectSample={handleSelectSample}
-            activeDatasetName={activeDatasetName}
-            transactions={transactions}
-            summary={summary}
-          />
-        )}
+          {activeTab === 'statement' && (
+            <StatementPage
+              goal={activeGoal}
+              onGoalChange={handleGoalChange}
+              onFileUpload={handleCustomFileUpload}
+              onSelectSample={handleSelectSample}
+              activeDatasetName={activeDatasetName}
+              transactions={transactions}
+              summary={summary}
+            />
+          )}
 
-        {activeTab === 'analytics' && (
-          <AnalyticsPage summary={summary} />
-        )}
+          {activeTab === 'analytics' && (
+            <AnalyticsPage summary={summary} />
+          )}
 
-        {activeTab === 'guidance' && (
-          <GuidancePage
-            recommendations={recommendations}
-            goalAnalysis={goalAnalysis}
-            goal={activeGoal}
-          />
-        )}
+          {activeTab === 'guidance' && (
+            <GuidancePage
+              recommendations={recommendations}
+              goalAnalysis={goalAnalysis}
+              goal={activeGoal}
+            />
+          )}
 
-        {activeTab === 'history' && (
-          <HistoryPage
-            historyRecords={historyRecords}
-            user={user}
-            onSnapshotScore={handleSaveToHistory}
-            onOpenAuth={() => setIsAuthOpen(true)}
-          />
-        )}
+          {activeTab === 'history' && (
+            <HistoryPage
+              historyRecords={historyRecords}
+              user={user}
+              onSnapshotScore={handleSaveToHistory}
+              onOpenAuth={() => setIsAuthOpen(true)}
+            />
+          )}
+        </div>
       </main>
 
       {/* Footer */}

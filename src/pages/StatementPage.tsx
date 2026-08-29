@@ -37,27 +37,27 @@ export const StatementPage: React.FC<StatementPageProps> = ({
   });
 
   return (
-    <div className="space-y-8 py-4 max-w-6xl mx-auto">
-      {/* Page Header */}
-      <div className="space-y-1.5">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold">
+    <div className="space-y-12 py-4 max-w-6xl mx-auto">
+      {/* Page Header with Generous Negative Space */}
+      <div className="space-y-3 pb-2">
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-bold shadow-xs">
           <FileText className="w-3.5 h-3.5 text-amber-700" />
           <span>Statement & Target Configuration</span>
         </div>
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-          Financial Goal & Transaction Ingestion
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Financial Goal & Ingestion
         </h1>
-        <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
           Calibrate your target goal milestone and ingest your bank or credit card transaction statements for instant client-side analysis.
         </p>
       </div>
 
-      {/* Grid: Goal Input & File Upload */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-5">
+      {/* Grid: Goal Input & File Upload with generous gap */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="lg:col-span-5 hover-card-lift">
           <GoalInput goal={goal} onChange={onGoalChange} />
         </div>
-        <div className="lg:col-span-7">
+        <div className="lg:col-span-7 hover-card-lift">
           <FileUploadZone
             onFileUpload={onFileUpload}
             onSelectSample={onSelectSample}
@@ -67,10 +67,10 @@ export const StatementPage: React.FC<StatementPageProps> = ({
       </div>
 
       {/* Transaction Explorer Data Table */}
-      <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-8 shadow-xs hover-card-lift space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-base font-bold text-slate-900">Parsed Transactions ({transactions.length})</h3>
+            <h3 className="text-lg font-bold text-slate-900">Parsed Transactions ({transactions.length})</h3>
             <p className="text-xs text-slate-500">Currently loaded dataset: <strong className="text-slate-800">{activeDatasetName}</strong></p>
           </div>
 
