@@ -66,12 +66,21 @@ export const StatementPage: React.FC<StatementPageProps> = ({
         </div>
       </div>
 
-      {/* Transaction Explorer Data Table */}
+      {/* Transaction Explorer Data Table with Live Source Pill */}
       <div className="bg-white border border-slate-200/90 rounded-3xl p-7 sm:p-8 shadow-xs hover-card-lift space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-bold text-slate-900">Parsed Transactions ({transactions.length})</h3>
-            <p className="text-xs text-slate-500">Currently loaded dataset: <strong className="text-slate-800">{activeDatasetName}</strong></p>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-bold text-slate-900">Parsed Transactions ({transactions.length})</h3>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-900 border border-emerald-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live Data Active
+              </span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Showing records read directly from: <strong className="text-slate-900 font-semibold">{activeDatasetName}</strong>
+              {summary.startDate && summary.endDate ? ` (${summary.startDate} to ${summary.endDate})` : ''}
+            </p>
           </div>
 
           {/* Search & Filter */}
@@ -97,6 +106,26 @@ export const StatementPage: React.FC<StatementPageProps> = ({
                 <option key={cat} value={cat}>{cat}</option>
               ))}
             </select>
+          </div>
+        </div>
+
+        {/* Quick Statement Totals Pill Bar */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-200/80 text-xs">
+          <div>
+            <span className="text-slate-400 font-medium block">Total Transactions</span>
+            <strong className="text-slate-900 font-mono text-sm">{transactions.length} rows</strong>
+          </div>
+          <div>
+            <span className="text-slate-400 font-medium block">Total Inflow</span>
+            <strong className="text-emerald-700 font-mono text-sm">₹{Math.round(summary.totalIncome).toLocaleString('en-IN')}</strong>
+          </div>
+          <div>
+            <span className="text-slate-400 font-medium block">Total Outflow</span>
+            <strong className="text-slate-900 font-mono text-sm">₹{Math.round(summary.totalExpenses).toLocaleString('en-IN')}</strong>
+          </div>
+          <div>
+            <span className="text-slate-400 font-medium block">Net Savings Rate</span>
+            <strong className="text-amber-600 font-mono text-sm">{summary.savingsRate.toFixed(1)}%</strong>
           </div>
         </div>
 

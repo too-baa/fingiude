@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { UploadCloud, FileText, Download, Play, CheckCircle2 } from 'lucide-react';
+import { UploadCloud, FileText, Download, CheckCircle2, Check } from 'lucide-react';
 import { SAMPLE_DATASETS, SampleDataset } from '../data/sampleStatements';
 
 interface FileUploadZoneProps {
@@ -15,10 +15,12 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [lastUploadedName, setLastUploadedName] = useState<string | null>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setLastUploadedName(file.name);
       const reader = new FileReader();
       reader.onload = (event) => {
         const text = event.target?.result as string;
@@ -35,6 +37,7 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
     if (file) {
+      setLastUploadedName(file.name);
       const reader = new FileReader();
       reader.onload = (event) => {
         const text = event.target?.result as string;
@@ -63,19 +66,31 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
     URL.revokeObjectURL(url);
   };
 
+  const isCustomUpload = activeDatasetName && !SAMPLE_DATASETS.some(d => d.name === activeDatasetName);
+
   return (
-    <div className="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-sm">
-      <div className="flex items-center space-x-3 mb-4">
-        <div className="w-10 h-10 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center shrink-0 shadow-sm">
-          <FileText className="w-5 h-5 stroke-[2.5]" />
+    <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-7 shadow-xs">
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center space-x-3">
+          <div className="w-11 h-11 rounded-2xl bg-amber-400 text-slate-950 flex items-center justify-center shrink-0 shadow-sm shadow-amber-400/20">
+            <FileText className="w-6 h-6 stroke-[2.5]" />
+          </div>
+          <div>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900">2. Ingest Transaction Statement</h3>
+            <p className="text-xs text-slate-500">Upload your own CSV or test with one-click sample datasets</p>
+          </div>
         </div>
-        <div>
-          <h3 className="text-base font-bold text-slate-900">2. Ingest Transaction Statement</h3>
-          <p className="text-xs text-slate-500">Upload your own CSV or test with one-click sample datasets</p>
-        </div>
+
+        {/* Live Active Data Badge */}
+        {activeDatasetName && (
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Active: {activeDatasetName.length > 20 ? activeDatasetName.substring(0, 20) + '...' : activeDatasetName}</span>
+          </span>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Side: Upload Box */}
         <div className="lg:col-span-7 flex flex-col justify-between">
           <div
@@ -83,8 +98,10 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
             onDragLeave={() => setIsDragging(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition flex flex-col items-center justify-center h-full min-h-[140px] ${
-              isDragging
+            className={`border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center h-full min-h-[160px] ${
+              isCustomUpload
+                ? 'border-emerald-400 bg-emerald-50/40'
+                : isDragging
                 ? 'border-amber-500 bg-amber-50'
                 : 'border-slate-300 bg-slate-50/60 hover:border-amber-400 hover:bg-slate-50'
             }`}
@@ -96,43 +113,59 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
               accept=".csv,text/csv"
               className="hidden"
             />
-            <div className="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center mb-2 text-amber-700">
-              <UploadCloud className="w-5 h-5" />
+            <div className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-2.5 transition ${
+              isCustomUpload ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+            }`}>
+              {isCustomUpload ? <Check className="w-6 h-6 stroke-[3]" /> : <UploadCloud className="w-6 h-6" />}
             </div>
-            <p className="text-xs sm:text-sm text-slate-800 font-semibold">
-              Drop your statement CSV or <span className="text-amber-600 underline underline-offset-2">browse</span>
-            </p>
-            <p className="text-[11px] text-slate-400 mt-0.5">Supports: date, description, category, amount, type</p>
+
+            {isCustomUpload ? (
+              <div className="space-y-0.5">
+                <p className="text-xs sm:text-sm text-emerald-950 font-bold">
+                  ✓ Custom CSV Loaded: <span className="underline">{activeDatasetName}</span>
+                </p>
+                <p className="text-[11px] text-emerald-800">
+                  Data parsed live into all charts and scoring engines. Click or drop to replace.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-0.5">
+                <p className="text-xs sm:text-sm text-slate-800 font-semibold">
+                  Drop your statement CSV or <span className="text-amber-600 underline underline-offset-2">browse files</span>
+                </p>
+                <p className="text-[11px] text-slate-400">Accepts: date, description, category, amount, type</p>
+              </div>
+            )}
           </div>
 
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2.5 flex justify-end">
             <button
               onClick={downloadTemplate}
-              className="text-xs text-slate-500 hover:text-amber-700 font-medium flex items-center gap-1 transition"
+              className="text-xs text-slate-500 hover:text-amber-700 font-semibold flex items-center gap-1.5 transition"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download CSV Template</span>
+              <span>Download Standard CSV Template</span>
             </button>
           </div>
         </div>
 
         {/* Right Side: Demo Statement Selectors */}
-        <div className="lg:col-span-5 space-y-2">
-          <div className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1 flex items-center justify-between">
-            <span>Instant Demo Statements</span>
-            <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-100 text-amber-900">Click to load</span>
+        <div className="lg:col-span-5 space-y-2.5">
+          <div className="text-xs font-extrabold text-slate-700 uppercase tracking-wider mb-1 flex items-center justify-between">
+            <span>Or Load Demo Statements</span>
+            <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">1-Click</span>
           </div>
 
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             {SAMPLE_DATASETS.map((dataset) => {
               const isActive = activeDatasetName === dataset.name;
               return (
                 <button
                   key={dataset.id}
                   onClick={() => onSelectSample(dataset)}
-                  className={`w-full text-left p-2.5 rounded-xl border text-xs transition flex items-center justify-between ${
+                  className={`w-full text-left p-3 rounded-2xl border text-xs transition flex items-center justify-between ${
                     isActive
-                      ? 'bg-amber-50 border-amber-400 text-slate-900 font-bold shadow-sm'
+                      ? 'bg-amber-50 border-amber-400 text-slate-900 font-bold shadow-xs'
                       : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700 hover:border-slate-300'
                   }`}
                 >
@@ -142,7 +175,7 @@ export const FileUploadZone: React.FC<FileUploadZoneProps> = ({
                       {dataset.name}
                     </div>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded font-mono font-bold bg-white border border-slate-200 text-slate-700 shrink-0">
+                  <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-white border border-slate-200 text-slate-700 shrink-0">
                     {dataset.badge}
                   </span>
                 </button>
