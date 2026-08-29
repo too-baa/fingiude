@@ -13,6 +13,7 @@ interface StatementPageProps {
   activeDatasetName: string;
   transactions: Transaction[];
   summary: FinancialSummary;
+  onNavigateToGuidance?: () => void;
 }
 
 export const StatementPage: React.FC<StatementPageProps> = ({
@@ -23,6 +24,7 @@ export const StatementPage: React.FC<StatementPageProps> = ({
   activeDatasetName,
   transactions,
   summary,
+  onNavigateToGuidance,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -55,7 +57,11 @@ export const StatementPage: React.FC<StatementPageProps> = ({
       {/* Grid: Goal Input & File Upload with generous gap */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-5 hover-card-lift">
-          <GoalInput goal={goal} onChange={onGoalChange} />
+          <GoalInput
+            goal={goal}
+            onChange={onGoalChange}
+            onNavigateToGuidance={onNavigateToGuidance}
+          />
         </div>
         <div className="lg:col-span-7 hover-card-lift">
           <FileUploadZone

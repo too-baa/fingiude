@@ -232,6 +232,7 @@ export function App() {
               activeDatasetName={activeDatasetName}
               transactions={transactions}
               summary={summary}
+              onNavigateToGuidance={() => handleSelectTab('guidance')}
             />
           )}
 
