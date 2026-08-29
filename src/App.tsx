@@ -171,9 +171,21 @@ export function App() {
 
   const handleLogout = async () => {
     if (supabase) {
-      await supabase.auth.signOut();
+      try {
+        await supabase.auth.signOut();
+      } catch (err) {
+        console.error('Supabase sign out error:', err);
+      }
     }
+    // Automatically purge all in-memory and cached statement data upon signout for privacy
+    clearAllLocalData();
     setUser(null);
+    setRawCSV(BALANCED_BUDGET_CSV);
+    setActiveDatasetName('1. Balanced Budget (Healthy)');
+    setActiveGoal(DEFAULT_GOAL);
+    setEstimatedIncomeOverride(undefined);
+    setHistoryRecords([]);
+    handleSelectTab('overview');
   };
 
   return (
