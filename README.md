@@ -1,4 +1,4 @@
-# FinHealthAI — Personal Financial Health & Guidance Assistant 📊
+# FinGuide — Personal Financial Health & Guidance Assistant 📊
 
 > **DropHack'26 Fintech Track Submission**  
 > An explainable, privacy-preserving AI assistant that ingests transaction statements, computes a deterministic 0–100 financial health score, and delivers goal-tailored budgeting guidance with clear mathematical rule triggers.
@@ -97,4 +97,4 @@ USING (auth.uid() = user_id);
 ---
 
 ## ⚖️ Regulatory Disclaimer
-FinHealthAI is an educational financial literacy simulation and budgeting assistant. It does not provide certified investment advice, stock recommendations, or wealth management services.
+FinGuide is an educational financial literacy simulation and budgeting assistant. It does not provide certified investment advice, stock recommendations, or wealth management services.

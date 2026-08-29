@@ -11,7 +11,7 @@ export const DisclaimerFooter: React.FC = () => {
           <div className="space-y-0.5">
             <span className="font-bold text-slate-900 block">Regulatory & Financial Advisory Notice</span>
             <p className="text-[11px] text-slate-600 leading-relaxed">
-              FinHealthAI is an educational financial literacy simulator and budgeting tool. This platform <strong>does not provide certified investment advice</strong>, stock recommendations, or wealth management services. All calculations are rule-based arithmetic models tailored for personal budgeting discipline.
+              FinGuide is an educational financial literacy simulator and budgeting tool. This platform <strong>does not provide certified investment advice</strong>, stock recommendations, or wealth management services. All calculations are rule-based arithmetic models tailored for personal budgeting discipline.
             </p>
           </div>
         </div>

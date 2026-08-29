@@ -36,7 +36,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         setLoading(false);
         const demoUser: UserAuthProfile = {
           id: 'demo-user-' + Math.random().toString(36).substring(2, 8),
-          email: email || 'demo_user@finhealth.ai',
+          email: email || 'demo_user@finguide.ai',
           fullName: 'Demo Participant',
         };
         onLoginSuccess(demoUser);
@@ -103,7 +103,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </div>
           <div>
             <h2 className="text-lg font-bold text-slate-900">
-              {mode === 'config' ? 'Supabase Configuration' : mode === 'signup' ? 'Create Account' : 'Sign In to FinHealth'}
+              {mode === 'config' ? 'Supabase Configuration' : mode === 'signup' ? 'Create Account' : 'Sign In to FinGuide'}
             </h2>
             <p className="text-xs text-slate-500">Secure JWT Authentication & Cloud History Sync</p>
           </div>

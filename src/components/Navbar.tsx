@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-base font-bold tracking-tight text-white uppercase">
-                  FinHealth<span className="text-amber-400">AI</span>
+                  Fin<span className="text-amber-400">Guide</span>
                 </span>
                 <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-amber-400 text-slate-950">
                   MVP

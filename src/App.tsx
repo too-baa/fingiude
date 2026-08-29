@@ -56,7 +56,7 @@ export function App() {
   // Goal and Statement State
   const [activeGoal, setActiveGoal] = useState<FinancialGoal>(() => {
     try {
-      const saved = localStorage.getItem('finhealth_active_goal');
+      const saved = localStorage.getItem('finguide_active_goal') || localStorage.getItem('finhealth_active_goal');
       return saved ? JSON.parse(saved) : DEFAULT_GOAL;
     } catch {
       return DEFAULT_GOAL;
@@ -80,13 +80,13 @@ export function App() {
     if (supabase) {
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session?.user) {
-          setUser({ id: session.user.id, email: session.user.email || 'user@finhealth.ai' });
+          setUser({ id: session.user.id, email: session.user.email || 'user@finguide.ai' });
         }
       });
 
       const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
         if (session?.user) {
-          setUser({ id: session.user.id, email: session.user.email || 'user@finhealth.ai' });
+          setUser({ id: session.user.id, email: session.user.email || 'user@finguide.ai' });
         } else {
           setUser(null);
         }
@@ -104,7 +104,7 @@ export function App() {
 
   const handleGoalChange = (newGoal: FinancialGoal) => {
     setActiveGoal(newGoal);
-    localStorage.setItem('finhealth_active_goal', JSON.stringify(newGoal));
+    localStorage.setItem('finguide_active_goal', JSON.stringify(newGoal));
   };
 
   // Pipeline Computations

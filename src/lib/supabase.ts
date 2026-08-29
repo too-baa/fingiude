@@ -18,7 +18,7 @@ export const isSupabaseConfigured = Boolean(SUPABASE_URL && SUPABASE_KEY);
 export const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Local fallback for score history records (Zero cloud footprint)
-const LOCAL_STORAGE_HISTORY_KEY = 'finhealth_score_history';
+const LOCAL_STORAGE_HISTORY_KEY = 'finguide_score_history';
 
 export const getScoreHistory = async (userId?: string): Promise<ScoreHistoryRecord[]> => {
   if (supabase && userId) {
@@ -79,6 +79,8 @@ export const saveScoreRecord = async (record: ScoreHistoryRecord, userId?: strin
 
 export const clearAllLocalData = () => {
   localStorage.removeItem(LOCAL_STORAGE_HISTORY_KEY);
+  localStorage.removeItem('finhealth_score_history');
+  localStorage.removeItem('finguide_active_goal');
   localStorage.removeItem('finhealth_active_goal');
   localStorage.removeItem('supabase_url');
   localStorage.removeItem('supabase_anon_key');
